@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '@/components/Navbar'
-import Sidebar from '@/components/Sidebar'
+import LeftSidebar from '@/components/LeftSidebar'
+import RightSidebar from '@/components/RightSidebar'
 import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,8 +11,10 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%',
+    // width: '100%',
     marginTop: 30,
+    justifyContent: 'center',
+    // minWidth: 800,
   },
 }))
 export default function Layout(props) {
@@ -21,8 +24,9 @@ export default function Layout(props) {
     <div className={classes.root}>
       <Navbar />
       <div className={classes.content}>
-        <Sidebar />
+        <LeftSidebar />
         {props.children}
+        <RightSidebar />
       </div>
     </div>
   )

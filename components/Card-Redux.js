@@ -11,9 +11,35 @@ import { red } from '@material-ui/core/colors'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { connect } from 'react-redux'
+import { changeName } from '../redux/postSlice'
 
-export default function FeedItem({}) {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: 345,
+  },
+  media: {
+    display: 'flex',
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  avatar: {
+    display: 'flex',
+    backgroundColor: red[500],
+  },
+}))
+
+function FeedItem({ name, changeName }) {
   const classes = useStyles()
+  const [value, setValue] = useState('')
+  const submit = () => {
+    changeName(value)
+  }
+  const onChangeName = (event) => {
+    setValue(event.target.value)
+  }
 
   return (
     <>
@@ -53,23 +79,20 @@ export default function FeedItem({}) {
           </IconButton>
         </CardActions>
       </Card>
+
+      <div>{`The current users name is ${name}`}</div>
+      <input value={value} onChange={onChangeName} />
+      <button onClick={submit}>Change Name</button>
     </>
   )
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: 20,
-  },
-  media: {
-    display: 'flex',
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  avatar: {
-    display: 'flex',
-    backgroundColor: red[500],
-  },
-}))
+const mapStateToProps = (state) => ({
+  name: state.post.myName,
+})
+
+const mapDispatchToProps = {
+  changeName,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedItem)

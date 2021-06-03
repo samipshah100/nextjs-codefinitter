@@ -30,7 +30,7 @@ const sidebarList = [
   },
 ]
 
-export default function Sidebar() {
+export default function LeftSidebar() {
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: 150,
+    // width: 150,
     marginLeft: 50,
+    marginRight: 20,
   },
 }))
