@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     // minWidth: 800,
   },
+  feed: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
 }))
 export default function Layout(props) {
   const classes = useStyles()
@@ -25,7 +29,7 @@ export default function Layout(props) {
       <Navbar />
       <div className={classes.content}>
         <LeftSidebar />
-        {props.children}
+        <div className={classes.feed}>{props.children}</div>
         <RightSidebar />
       </div>
     </div>
