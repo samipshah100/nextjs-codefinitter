@@ -12,16 +12,18 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
-export default function FeedItem({}) {
+export default function FeedItem({ item: { avatar, createdAt, name, post } }) {
   const classes = useStyles()
+
+  // console.log({ item })
 
   return (
     <>
       <Card className={classes.root}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              R
+            <Avatar aria-label="recipe" src={avatar} className={classes.avatar}>
+              {name}
             </Avatar>
           }
           action={
@@ -29,8 +31,8 @@ export default function FeedItem({}) {
               <MoreVertIcon />
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={name}
+          subheader={createdAt}
         />
         {/* <CardMedia
         className={classes.media}
@@ -39,9 +41,7 @@ export default function FeedItem({}) {
       /> */}
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+            {post}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   media: {
     display: 'flex',

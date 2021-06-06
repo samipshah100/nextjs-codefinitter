@@ -34,8 +34,8 @@ export default function ButtonAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
+          <Typography variant="h5" className={classes.title}>
+            Codefinity Media
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
