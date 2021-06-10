@@ -1,16 +1,16 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Hidden from '@material-ui/core/Hidden'
+import { Hidden, ButtonBase } from '@material-ui/core'
 
 export default function SidebarItem({ item: { icon, label } }) {
   const classes = useStyles()
   return (
-    <div className={classes.root}>
+    <ButtonBase className={classes.root}>
       <div className={classes.icon}>{icon}</div>
       <Hidden xsDown>
         <div className={classes.label}>{label}</div>
       </Hidden>
-    </div>
+    </ButtonBase>
   )
 }
 
@@ -19,13 +19,23 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     marginBottom: 20,
+    justifyContent: 'flex-start',
+    padding: 5,
+    margin: -5,
+    borderRadius: 8,
+    '&:hover': {
+      backgroundColor: '#eee',
+      color: theme.palette.primary.main,
+    },
   },
   icon: {
     display: 'flex',
     marginLeft: 10,
+    // color: '#ccc',
   },
   label: {
     display: 'flex',
     marginLeft: 10,
+    // color: '#ccc',
   },
 }))
