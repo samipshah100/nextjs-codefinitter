@@ -57,19 +57,19 @@ export default function PostDetails({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: 600,
-    [theme.breakpoints.down('md')]: {
-      width: 450,
-      marginRight: 20,
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: 600,
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-    },
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    //   maxWidth: 600,
+    //   [theme.breakpoints.down('md')]: {
+    //     width: 450,
+    //     marginRight: 20,
+    //   },
+    //   [theme.breakpoints.up('lg')]: {
+    //     width: 600,
+    //   },
+    //   [theme.breakpoints.down('sm')]: {
+    //     width: 'auto',
+    //   },
   },
   media: {
     display: 'flex',

@@ -19,6 +19,22 @@ const useStyles = makeStyles((theme) => ({
   feed: {
     display: 'flex',
     flexDirection: 'column',
+
+    // adding new
+
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: 600,
+    [theme.breakpoints.down('md')]: {
+      width: 450,
+      marginRight: 20,
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: 600,
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+    },
   },
 }))
 export default function Layout(props) {
