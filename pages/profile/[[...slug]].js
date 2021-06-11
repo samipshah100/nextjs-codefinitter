@@ -15,79 +15,138 @@ import EventIcon from '@material-ui/icons/Event'
 import { useRouter } from 'next/router'
 import { apiPath } from '@/constants'
 import useSWR from 'swr'
+import moment from 'moment'
 
 export default function ProfilePage() {
   const classes = useStyles()
   const router = useRouter()
+
+  const isEmptyObject = (obj) => {
+    if (Object.keys(obj).length === 0 && obj.constructor === Object) return true
+    else return false
+  }
+
+  const [isReady, setIsReady] = React.useState(false)
+  const [userId, setUserId] = React.useState(1)
+
   React.useEffect(() => {
-    console.log('query ', router.query)
+    // console.log('query ', router.query)
+    if (router.query) {
+      console.log('query ', router.query)
+      if (isEmptyObject(router.query)) {
+        console.log('in profile page')
+        setIsReady(true)
+        setUserId(1)
+      } else if (Array.isArray(router.query?.slug)) {
+        console.log('in dynamic route')
+        const { slug } = router.query
+
+        if (slug.length === 1) {
+          console.log('one length slug', slug[0])
+          setIsReady(true)
+          setUserId(slug[0])
+        } else {
+          setIsReady(false)
+          console.log('404')
+          router.push('/404')
+        }
+      }
+    }
   }, [router])
-  console.log(
-    '🚀 ~ file: [[...slug]].js ~ line 25 ~ ProfilePage ~ router',
-    router
+
+  // const { data } = useSWR(isReady ? `${apiPath}/post` : null)
+
+  const { data: userData, error: userDataError } = useSWR(
+    isReady ? `${apiPath}/user/${userId}` : null
   )
 
-  const { data } = useSWR(`${apiPath}/post`)
+  console.log(
+    '🚀 ~ file: [[...slug]].js ~ line 17 ~ ProfilePage ~ data',
+    userData,
+    { userDataError }
+  )
 
-  // console.log('🚀 ~ file: [[...slug]].js ~ line 17 ~ ProfilePage ~ data', data)
+  const memoizedDate = React.useMemo(
+    () => moment(userData?.createdAt).format('MMMM Do YYYY'),
+    [userData?.createdAt]
+  )
+  // handle error
+  React.useEffect(() => {
+    if (userDataError && userDataError.response.status === 404) {
+      router.push('/')
+    }
+  }, [userDataError])
 
   return (
     <Layout>
       <Paper className={classes.root}>
-        <div className={classes.profile}>
-          {/* Avatar and button */}
-          <div className={classes.header}>
-            <div className={classes.avatarContainer}>
-              <Avatar className={classes.avatar} src={''} alt={'a'} />
-              <Typography className={classes.name} variant="h6">
-                Samip Shah
-              </Typography>
-              <Typography className={classes.username} variant="body1">
-                @samip
-              </Typography>
-            </div>
-            <Button
+        {userData ? (
+          <div className={classes.profile}>
+            {/* Avatar and button */}
+            <div className={classes.header}>
+              <div className={classes.avatarContainer}>
+                <Avatar
+                  className={classes.avatar}
+                  src={userData.data.avatar}
+                  alt={'a'}
+                />
+                <Typography className={classes.name} variant="h6">
+                  {userData.data.name}
+                </Typography>
+                <Typography className={classes.username} variant="body1">
+                  @{userData.data.username}
+                </Typography>
+              </div>
+              {/* <Button
               className={classes.editProfileButton}
               variant="contained"
               color="primary"
             >
               Edit Profile
-            </Button>
-          </div>
-
-          {/* Tagline and metadata */}
-          <div className={classes.metadata}>
-            <Typography className={classes.tagline} variant="body2">
-              I love finding solutions to new problems. My hobbies are yoga,
-              mediation, traveling.
-            </Typography>
-
-            <div className={classes.joinedContainer}>
-              <EventIcon />
-
-              <Typography className={classes.joined} variant="body2">
-                Joined December 2014
-              </Typography>
+            </Button> */}
             </div>
-            <Typography className={classes.followers} variant="caption">
-              <span className={classes.followersCount}>752</span> followers{' '}
-              <span className={classes.followersCount}>205</span> following
-            </Typography>
-          </div>
-        </div>
 
-        <Box mt={2} 
-        // mb={2}
+            {/* Tagline and metadata */}
+            <div className={classes.metadata}>
+              <Typography className={classes.tagline} variant="body2">
+                {userData.data.description}
+              </Typography>
+
+              <div className={classes.joinedContainer}>
+                <EventIcon />
+                <Typography className={classes.joined} variant="body2">
+                  {memoizedDate}
+                </Typography>
+              </div>
+              <Box mt={1}>
+                <Typography className={classes.followers} variant="caption">
+                  <span className={classes.followersCount}>
+                    {userData.data.followerCount}
+                  </span>{' '}
+                  followers{'   '}
+                  <span className={classes.followersCount}>
+                    {userData.data.followedCount}
+                  </span>{' '}
+                  following
+                </Typography>
+              </Box>
+            </div>
+          </div>
+        ) : (
+          <CircularProgress className={classes.loading} />
+        )}
+        {/* <Box
+          mt={2}
+          // mb={2}
         >
           <Divider />
           <Typography variant="h6" className={classes.postsLabel}>
             User Posts
           </Typography>
           <Divider />
-        </Box>
-
+        </Box> */}
         {/* user feed */}
-        <div className={classes.feed}>
+        {/* <div className={classes.feed}>
           {data ? (
             data.data.map((item) => <FeedItem item={item} key={item.id} />)
           ) : (
@@ -95,7 +154,7 @@ export default function ProfilePage() {
               <CircularProgress className={classes.loading} />
             </Box>
           )}
-        </div>
+        </div> */}
       </Paper>
     </Layout>
   )
@@ -107,11 +166,13 @@ const useStyles = makeStyles((theme) => ({
   },
   profile: {
     padding: 16,
+    display: 'flex',
+    flexDirection: 'column',
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   avatarContainer: {
     display: 'flex',
@@ -150,7 +211,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   followers: {
-    marginTop: 32,
+    marginTop: 40,
     color: theme.palette.text.secondary,
   },
   followersCount: {

@@ -20,7 +20,7 @@ import moment from 'moment'
 export default function FeedItem({ item }) {
   const classes = useStyles()
   const { avatar, createdAt, name, text, id: postId } = item
-  console.log({ item })
+  // console.log({ item })
 
   let date = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a') // June 11th 2021, 9:45:28 am
 

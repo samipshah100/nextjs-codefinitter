@@ -4,7 +4,6 @@ import { Hidden, ButtonBase } from '@material-ui/core'
 import Link from 'next/link'
 
 export default function SidebarItem({ item: { icon, link, label } }) {
-  console.log('🚀 ~ file: SidebarItem.js ~ line 7 ~ SidebarItem ~ link', link)
   const classes = useStyles()
   return (
     <Link href={link}>
