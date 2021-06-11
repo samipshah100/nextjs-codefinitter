@@ -21,6 +21,7 @@ export default function PostDetailsPage({ data }) {
   // console.log('🚀 ~ file: [postId].js ~ line 8 ~ Home ~ router', router)
 
   return <Layout>{data && <PostDetails item={data[0]} />}</Layout>
+  return <div>a</div>
 }
 
 export async function getServerSideProps(context) {
@@ -30,10 +31,10 @@ export async function getServerSideProps(context) {
       query: { postId },
     } = context
 
-    // console.log(
-    //   '🚀 ~ file: [postId].js ~ line 34 ~ getServerSideProps ~ params',
-    //   postId
-    // )
+    console.log(
+      '🚀 ~ file: [postId].js ~ line 34 ~ getServerSideProps ~ params',
+      postId
+    )
 
     const res = await axios.get(`${apiPath}/post/${postId}/postData`)
 

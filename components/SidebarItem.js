@@ -1,16 +1,20 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Hidden, ButtonBase } from '@material-ui/core'
+import Link from 'next/link'
 
-export default function SidebarItem({ item: { icon, label } }) {
+export default function SidebarItem({ item: { icon, link, label } }) {
+  console.log('🚀 ~ file: SidebarItem.js ~ line 7 ~ SidebarItem ~ link', link)
   const classes = useStyles()
   return (
-    <ButtonBase className={classes.root}>
-      <div className={classes.icon}>{icon}</div>
-      <Hidden xsDown>
-        <div className={classes.label}>{label}</div>
-      </Hidden>
-    </ButtonBase>
+    <Link href={link}>
+      <ButtonBase className={classes.root}>
+        <div className={classes.icon}>{icon}</div>
+        <Hidden xsDown>
+          <div className={classes.label}>{label}</div>
+        </Hidden>
+      </ButtonBase>
+    </Link>
   )
 }
 

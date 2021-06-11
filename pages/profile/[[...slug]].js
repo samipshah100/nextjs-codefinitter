@@ -22,9 +22,14 @@ export default function ProfilePage() {
   React.useEffect(() => {
     console.log('query ', router.query)
   }, [router])
+  console.log(
+    '🚀 ~ file: [[...slug]].js ~ line 25 ~ ProfilePage ~ router',
+    router
+  )
 
   const { data } = useSWR(`${apiPath}/post`)
-  console.log('🚀 ~ file: [[...slug]].js ~ line 17 ~ ProfilePage ~ data', data)
+
+  // console.log('🚀 ~ file: [[...slug]].js ~ line 17 ~ ProfilePage ~ data', data)
 
   return (
     <Layout>
@@ -71,7 +76,9 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <Box mt={2} mb={2}>
+        <Box mt={2} 
+        // mb={2}
+        >
           <Divider />
           <Typography variant="h6" className={classes.postsLabel}>
             User Posts

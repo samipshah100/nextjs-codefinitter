@@ -15,11 +15,12 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Skeleton from '@material-ui/lab/Skeleton'
-
-export default function PostDetails({
-  item: { avatar, createdAt, image, postData, name },
-}) {
+import moment from 'moment'
+export default function PostDetails({ item: { id, image, parent, postData } }) {
+  const { avatar, createdAt, name } = parent
   const classes = useStyles()
+
+  let date = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a') // June 11th 2021, 9:45:28 am
 
   return (
     <Card className={classes.root}>
@@ -35,7 +36,7 @@ export default function PostDetails({
           </IconButton>
         }
         title={name}
-        subheader={createdAt}
+        subheader={date}
       />
       {<CardMedia className={classes.media} image={image} title={name} />}
       <CardContent>
@@ -56,21 +57,6 @@ export default function PostDetails({
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   maxWidth: 600,
-    //   [theme.breakpoints.down('md')]: {
-    //     width: 450,
-    //     marginRight: 20,
-    //   },
-    //   [theme.breakpoints.up('lg')]: {
-    //     width: 600,
-    //   },
-    //   [theme.breakpoints.down('sm')]: {
-    //     width: 'auto',
-    //   },
-  },
   media: {
     display: 'flex',
     height: 0,

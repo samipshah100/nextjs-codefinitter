@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       width: 450,
       marginRight: 20,
+      marginLeft: 20,
     },
     [theme.breakpoints.up('lg')]: {
       width: 600,

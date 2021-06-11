@@ -8,20 +8,24 @@ import {
   Avatar,
   IconButton,
   Typography,
+  Paper,
 } from '@material-ui/core'
 import { red } from '@material-ui/core/colors'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Link from 'next/link'
+import moment from 'moment'
 
 export default function FeedItem({ item }) {
   const classes = useStyles()
   const { avatar, createdAt, name, text, id: postId } = item
   console.log({ item })
 
+  let date = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a') // June 11th 2021, 9:45:28 am
+
   return (
-    <Card className={classes.root}>
+    <Paper className={classes.root}>
       <Link
         href={`/details/${postId}`}
         style={{ display: 'flex', flexDirection: 'column' }}
@@ -43,7 +47,7 @@ export default function FeedItem({ item }) {
               </IconButton>
             }
             title={name}
-            subheader={createdAt}
+            subheader={date}
           />
           {/* <CardMedia
         className={classes.media}
@@ -65,7 +69,7 @@ export default function FeedItem({ item }) {
           </CardActions>
         </a>
       </Link>
-    </Card>
+    </Paper>
   )
 }
 
