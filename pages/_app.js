@@ -22,15 +22,15 @@ function MyApp({ Component, pageProps }) {
     }
   }, [])
 
-  const generateClassName = createGenerateClassName({
-    productionPrefix: 'myclasses-',
-  })
+  // const generateClassName = createGenerateClassName({
+  //   productionPrefix: 'myclasses-',
+  // })
 
-  const [key, setKey] = React.useState(0)
+  // const [key, setKey] = React.useState(0)
 
-  React.useEffect(() => {
-    setKey(1)
-  }, [])
+  // React.useEffect(() => {
+  //   setKey(1)
+  // }, [])
 
   return (
     <>
@@ -53,12 +53,10 @@ function MyApp({ Component, pageProps }) {
               content="minimum-scale=1, initial-scale=1, width=device-width"
             />
           </Head>
-          <StylesProvider key={key} generateClassName={generateClassName}>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <Component {...pageProps} />
-            </ThemeProvider>
-          </StylesProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
         </SWRConfig>
       </Provider>
     </>
