@@ -17,6 +17,12 @@ import { apiPath } from '@/constants'
 import useSWR from 'swr'
 import moment from 'moment'
 
+// Example for
+// 1. [[...slug]]
+// 2. client side rendering = useSwr
+// 3. use memo
+// 4. momentjs
+
 export default function ProfilePage() {
   const classes = useStyles()
   const router = useRouter()
@@ -133,7 +139,9 @@ export default function ProfilePage() {
             </div>
           </div>
         ) : (
-          <CircularProgress className={classes.loading} />
+          <Box display="flex" justifyContent="center">
+            <CircularProgress className={classes.loading} />
+          </Box>
         )}
         {/* <Box
           mt={2}
@@ -163,6 +171,7 @@ export default function ProfilePage() {
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: 32,
+    minHeight: 350,
   },
   profile: {
     padding: 16,
@@ -224,6 +233,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 8,
   },
   loading: {
+    marginTop: 20,
     height: 50,
     width: 50,
     color: theme.palette.primary.main,

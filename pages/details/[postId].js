@@ -8,7 +8,7 @@ import axios from 'axios'
 
 // Example for
 // 1. [slug]
-// 2.
+// 2. image
 export default function PostDetailsPage({ data }) {
   const router = useRouter()
 
