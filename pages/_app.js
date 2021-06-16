@@ -1,7 +1,11 @@
 import '../styles/globals.css'
 import theme from '../theme'
 import React from 'react'
-import { ThemeProvider } from '@material-ui/core/styles'
+import {
+  ThemeProvider,
+  StylesProvider,
+  createGenerateClassName,
+} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Head from 'next/head'
 import { SWRConfig } from 'swr'
@@ -16,6 +20,16 @@ function MyApp({ Component, pageProps }) {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
+  }, [])
+
+  const generateClassName = createGenerateClassName({
+    productionPrefix: 'myclasses-',
+  })
+
+  const [key, setKey] = React.useState(0)
+
+  React.useEffect(() => {
+    setKey(1)
   }, [])
 
   return (
@@ -39,10 +53,12 @@ function MyApp({ Component, pageProps }) {
               content="minimum-scale=1, initial-scale=1, width=device-width"
             />
           </Head>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </ThemeProvider>
+          <StylesProvider key={key} generateClassName={generateClassName}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </StylesProvider>
         </SWRConfig>
       </Provider>
     </>
