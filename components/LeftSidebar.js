@@ -4,6 +4,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox'
 import Hidden from '@material-ui/core/Hidden'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import ExploreIcon from '@material-ui/icons/Explore'
+import BusinessIcon from '@material-ui/icons/Business'
 import HomeIcon from '@material-ui/icons/Home'
 import ChatIcon from '@material-ui/icons/Chat'
 import { makeStyles } from '@material-ui/core/styles'
@@ -33,6 +34,11 @@ const sidebarList = [
     icon: <AccountBoxIcon />,
     label: 'Profile',
     link: '/profile',
+  },
+  {
+    icon: <BusinessIcon />,
+    label: 'About',
+    link: '/about',
   },
 ]
 
