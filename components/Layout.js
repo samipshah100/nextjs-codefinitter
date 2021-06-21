@@ -3,6 +3,21 @@ import Navbar from '@/components/Navbar'
 import LeftSidebar from '@/components/LeftSidebar'
 import RightSidebar from '@/components/RightSidebar'
 import { makeStyles } from '@material-ui/core/styles'
+
+export default function Layout(props) {
+  const classes = useStyles()
+
+  return (
+    <div className={classes.root}>
+      <Navbar />
+      <div className={classes.content}>
+        <LeftSidebar />
+        <div className={classes.feed}>{props.children}</div>
+        <RightSidebar />
+      </div>
+    </div>
+  )
+}
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -38,17 +53,3 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
-export default function Layout(props) {
-  const classes = useStyles()
-
-  return (
-    <div className={classes.root}>
-      <Navbar />
-      <div className={classes.content}>
-        <LeftSidebar />
-        <div className={classes.feed}>{props.children}</div>
-        <RightSidebar />
-      </div>
-    </div>
-  )
-}
